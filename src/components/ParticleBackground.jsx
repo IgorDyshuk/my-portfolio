@@ -10,21 +10,21 @@ const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const getParticleCount = (width, height) => {
   const density = width < MOBILE_BREAKPOINT ? MOBILE_DENSITY : DESKTOP_DENSITY;
   const count = Math.floor((width * height) / density);
-  return clamp(count, 50, 120);
+  return clamp(count, 35, 95);
 };
 
 const createParticle = (width, height, withRandomY = false) => {
-  const speedMagnitude = 0.08 + Math.random() * 0.35;
+  const speedMagnitude = 0.18 + Math.random() * 0.55;
   const direction = Math.random() > 0.5 ? 1 : -1;
 
   return {
     x: Math.random() * width,
     y: withRandomY ? Math.random() * height : direction > 0 ? -12 : height + 12,
-    r: 0.5 + Math.random() * 1.6,
+    r: 0.9 + Math.random() * 2,
     vy: speedMagnitude * direction,
     drift: 0.45 + Math.random() * 1.15,
     phase: Math.random() * Math.PI * 2,
-    alpha: 0.2 + Math.random() * 0.55,
+    alpha: 0.18 + Math.random() * 0.5,
     twinkle: 0.5 + Math.random() * 1.2,
   };
 };
@@ -93,7 +93,7 @@ function ParticleBackground() {
           particle.x +=
             Math.sin(timeScale * particle.drift + particle.phase) * 0.1;
           particle.vy += (Math.random() - 0.5) * 0.002;
-          particle.vy = clamp(particle.vy, -0.5, 0.5);
+          particle.vy = clamp(particle.vy, -0.85, 0.85);
 
           if (
             particle.y < -20 ||

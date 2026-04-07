@@ -4,7 +4,7 @@
 :root {
   --text: #ffffff;
   --text-h: #f8fbff;
-  --bg: #03060d;
+  --bg: #000000;
   --border: rgba(255, 255, 255, 0.14);
   --code-bg: rgba(255, 255, 255, 0.08);
   --accent: #f25a2e;
@@ -17,10 +17,11 @@
 
   --sans: 'Josefin Sans', 'Avenir Next', 'Segoe UI', sans-serif;
   --heading: 'Outfit', 'Avenir Next Condensed', 'Segoe UI', sans-serif;
-  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  --mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font: 400 20px/28px var(--sans);
+  letter-spacing: 0;
   color-scheme: dark;
   color: var(--text);
   background:
@@ -29,10 +30,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+*,
+*::before,
+*::after {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .particle-background {
@@ -42,4 +46,63 @@
   height: 100%;
   pointer-events: none;
   z-index: -1;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.paragraph-line {
+  display: block;
+  overflow: hidden;
+}
+
+.animated-gradient-text {
+  --text-gray: #6a707c;
+  --wave-soft: #a8b1c2;
+  --wave-highlight: #d4dae6;
+  --wave-interval: 5s;
+  --wave-angle: 100deg;
+  --wave-start-position: 160%;
+  --wave-end-position: -20%;
+
+  background-image: linear-gradient(
+    var(--wave-angle),
+    var(--text-gray) 0%,
+    var(--text-gray) 33%,
+    var(--wave-soft) 42%,
+    var(--wave-highlight) 50%,
+    var(--wave-soft) 57%,
+    var(--text-gray) 63%,
+    var(--text-gray) 100%
+  );
+  background-size: 200% 100%;
+  background-position: var(--wave-start-position) 50%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-wave-pass var(--wave-interval) linear infinite;
+}
+
+@keyframes text-wave-pass {
+  0%,
+  32% {
+    background-position: var(--wave-start-position) 50%;
+  }
+  100% {
+    background-position: var(--wave-end-position) 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-gradient-text {
+    animation: none;
+  }
 }
