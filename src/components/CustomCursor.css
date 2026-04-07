@@ -1,0 +1,80 @@
+@media (pointer: fine) {
+  .has-custom-cursor,
+  .has-custom-cursor body,
+  .has-custom-cursor a,
+  .has-custom-cursor button,
+  .has-custom-cursor [role='button'],
+  .has-custom-cursor input,
+  .has-custom-cursor textarea,
+  .has-custom-cursor select,
+  .has-custom-cursor label {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 160ms ease;
+}
+
+.custom-cursor.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #00d1ff;
+  box-shadow: 0 0 14px rgba(0, 209, 255, 0.58);
+  transition:
+    background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.custom-cursor-ring {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 209, 255, 0.72);
+  background: radial-gradient(
+    circle,
+    rgba(0, 209, 255, 0.18) 0%,
+    rgba(0, 209, 255, 0) 68%
+  );
+  box-shadow: 0 0 22px rgba(0, 209, 255, 0.2);
+  transition:
+    border-color 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.custom-cursor-dot.is-interactive {
+  background: #e9f9ff;
+  box-shadow: 0 0 16px rgba(233, 249, 255, 0.72);
+}
+
+.custom-cursor-ring.is-interactive {
+  border-color: rgba(233, 249, 255, 0.95);
+  box-shadow: 0 0 28px rgba(233, 249, 255, 0.26);
+}
+
+.custom-cursor-dot.is-pressed {
+  box-shadow: 0 0 12px rgba(233, 249, 255, 0.45);
+}
+
+.custom-cursor-ring.is-pressed {
+  box-shadow: 0 0 18px rgba(233, 249, 255, 0.2);
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
