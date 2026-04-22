@@ -7,9 +7,12 @@
   --bg: #000000;
   --border: rgba(255, 255, 255, 0.14);
   --code-bg: rgba(255, 255, 255, 0.08);
-  --accent: #f25a2e;
-  --accent-bg: rgba(242, 90, 46, 0.14);
-  --accent-border: rgba(242, 90, 46, 0.55);
+  --accent: #00d1ff;
+  --accent-rgb: 0, 209, 255;
+  --accent-soft: #8bf0ff;
+  --accent-contrast: #04121c;
+  --accent-bg: rgba(var(--accent-rgb), 0.14);
+  --accent-border: rgba(var(--accent-rgb), 0.55);
   --social-bg: rgba(255, 255, 255, 0.06);
   --shadow:
     rgba(0, 0, 0, 0.45) 0 14px 24px -8px,
@@ -46,6 +49,30 @@
   height: 100%;
   pointer-events: none;
   z-index: -1;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.accent-bg {
+  background-color: var(--accent);
+}
+
+.accent-border {
+  border-color: rgba(var(--accent-rgb), 0.6);
+}
+
+.accent-contrast {
+  color: var(--accent-contrast);
+}
+
+.accent-hover-glow:hover {
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.28);
+}
+
+.accent-before::before {
+  background-color: var(--accent-soft);
 }
 
 code,
