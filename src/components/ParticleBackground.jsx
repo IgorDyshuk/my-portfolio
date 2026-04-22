@@ -67,8 +67,24 @@ function ParticleBackground() {
     let frameId = 0;
 
     const resizeCanvas = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
+      const prevWidth = width;
+      const prevHeight = height;
+
+      const nextWidth = window.innerWidth;
+      const nextHeight = window.innerHeight;
+      const isMobile = nextWidth < MOBILE_BREAKPOINT;
+
+      if (
+        prevWidth &&
+        prevHeight &&
+        isMobile &&
+        nextWidth === prevWidth
+      ) {
+        return;
+      }
+
+      width = nextWidth;
+      height = nextHeight;
 
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width = Math.floor(width * dpr);
@@ -77,9 +93,32 @@ function ParticleBackground() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      particles = Array.from({ length: getParticleCount(width, height) }, () =>
-        createParticle(width, height, true),
-      );
+      const nextCount = getParticleCount(width, height);
+
+      if (!particles.length || !prevWidth || !prevHeight) {
+        particles = Array.from({ length: nextCount }, () =>
+          createParticle(width, height, true),
+        );
+        return;
+      }
+
+      const scaleX = width / prevWidth;
+      const scaleY = height / prevHeight;
+
+      for (const particle of particles) {
+        particle.x *= scaleX;
+        particle.y *= scaleY;
+      }
+
+      if (particles.length < nextCount) {
+        particles.push(
+          ...Array.from({ length: nextCount - particles.length }, () =>
+            createParticle(width, height, true),
+          ),
+        );
+      } else if (particles.length > nextCount) {
+        particles.length = nextCount;
+      }
     };
 
     const render = (time) => {
