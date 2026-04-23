@@ -59,7 +59,7 @@ const ABOUT_MOBILE_EXIT_ANIMATION = {
     duration: 2,
   },
   info: {
-    toY: -50,
+    toY: -80,
     start: "bottom 35%",
     end: "bottom -20%",
     scrub: true,
